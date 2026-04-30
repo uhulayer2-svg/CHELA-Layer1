@@ -1,0 +1,14 @@
+# ลบโฟลเดอร์หนักๆ ออกจาก Git
+node_modules/
+myenv/
+__pycache__/
+venv/
+
+# ลบไฟล์ขยะและ Log
+*.log
+.DS_Store
+.env
+
+# หากมีไฟล์ Binary หรือไฟล์ขนาดใหญ่ของ Blockchain
+*.exe
+*.bin

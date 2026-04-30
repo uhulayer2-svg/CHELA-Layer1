@@ -1,0 +1,7 @@
+mrnong@mrnong-X99:/mnt/ssd_1tb/workspace/web3_labs/chela_contracts$ forge create src/ChelaToken.sol:ChelaToken --rpc-url http://127.0.0.1:9944 --private-key 5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133 --broadcast
+[⠊] Compiling...
+No files changed, compilation skipped
+Deployer: 0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac
+Deployed to: 0x9c1da847B31C0973F26b1a2A3d5c04365a867703
+Transaction hash: 0xbe97a73b67d3c34a1b67a0351746e64e3a042420a2cb288cb8a63094bb67be5e
+mrnong@mrnong-X99:/mnt/ssd_1tb/workspace/web3_labs/chela_contracts$ 

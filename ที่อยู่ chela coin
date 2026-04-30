@@ -1,0 +1,45 @@
+-------------------------------
+🦀 Rust Web3 Wallet Created!
+-------------------------------
+Address:     0x285271b269b568975232e7bd15f5a918e242a924
+-------------------------------
+(venv_web3) mrnong@mrnong-X99:/mnt/ssd_1tb/worksp
+
+
+  Running `target/debug/rust_web3_test`
+-------------------------------
+🌐 Connected to: https://holesky.drpc.org
+📍 Address: 0x285271b269b568975232e7bd15f5a918e242a924
+💰 Balance: 0 Wei
+-------------------------------  Running `target/debug/rust_web3_test`
+
+รหัสที่คุณเพิ่งส่งมาคือ Transaction Hash (TxHash)
+0x8c1d2a188975ca7e9518178d61cb0e9173b91eafd60646e9d4839188ebdc5084
+
+.......................................
+code rust Chela coin
+.......................................
+use ethers::prelude::*;
+use std::sync::Arc;
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    // 1. เชื่อมต่อไปยัง Public RPC ของ Ethereum Testnet
+    let rpc_url = "https://ethereum-holesky-rpc.publicnode.com";
+    let provider = Provider::<Http>::try_from(rpc_url)?;
+    let client = Arc::new(provider);
+
+    // 2. ระบุ Address ที่เราอยากเช็ค (ลองใช้ Address ที่คุณเพิ่งสร้างดู)
+    let my_address = "0x285271b269b568975232e7bd15f5a918e242a924".parse::<Address>()?;
+
+    // 3. ดึงค่า Balance จาก Blockchain
+    let balance = client.get_balance(my_address, None).await?;
+
+    println!("-------------------------------");
+    println!("🌐 Connected to: {}", rpc_url);
+    println!("📍 Address: {:?}", my_address);
+    println!("💰 Balance: {} Wei", balance);
+    println!("-------------------------------");
+
+    Ok(())
+}

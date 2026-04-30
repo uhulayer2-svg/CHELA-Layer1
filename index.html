@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHELA Token Dashboard - Professional Edition</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #0b0e11; 
+            color: white; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container { 
+            background: #1e2329; 
+            border-radius: 20px; 
+            padding: 40px; 
+            width: 450px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid #333;
+        }
+        h1 { color: #fcd535; margin-bottom: 5px; } /* สีเหลืองทองแบบเว็บเทรด */
+        .subtitle { color: #848e9c; font-size: 14px; margin-bottom: 30px; }
+        
+        button { 
+            width: 100%;
+            background-color: #fcd535; 
+            color: #000; 
+            border: none; 
+            padding: 15px; 
+            font-size: 16px; 
+            font-weight: bold;
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        button:hover { background-color: #e2c02d; transform: translateY(-2px); }
+        button:disabled { background-color: #474d57; color: #848e9c; cursor: not-allowed; }
+
+        .info-section { 
+            background: #2b3139; 
+            padding: 20px; 
+            border-radius: 15px; 
+            text-align: left;
+            margin-top: 20px;
+        }
+        .label { color: #848e9c; font-size: 12px; text-transform: uppercase; }
+        .value { color: #fcd535; font-size: 18px; font-weight: bold; word-break: break-all; margin-bottom: 15px; }
+        .balance-value { font-size: 28px; color: #4ecca3; }
+
+        .transfer-box {
+            margin-top: 25px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #474d57;
+            background: #0b0e11;
+            color: white;
+            box-sizing: border-box;
+        }
+        .btn-transfer {
+            background-color: #4ecca3;
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-transfer:hover { background-color: #3db892; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CHELA DApp</h1>
+        <div class="subtitle">ระบบบริหารจัดการเหรียญ CHLA (Layer-1)</div>
+        
+        <button id="connectBtn" onclick="connectWallet()">🦊 เชื่อมต่อกระเป๋า MetaMask</button>
+        
+        <div id="mainUI" style="display:none;">
+            <div class="info-section">
+                <div class="label">ที่อยู่กระเป๋าของคุณ</div>
+                <div id="walletAddress" class="value">-</div>
+                
+                <div class="label">ยอดเงินคงเหลือ</div>
+                <div class="value balance-value"><span id="tokenBalance">0</span> <small style="font-size: 14px;">CHLA</small></div>
+            </div>
+
+            <div class="transfer-box">
+                <div class="label" style="text-align: center; font-weight: bold;">ทำรายการโอนเหรียญ</div>
+                <input type="text" id="recipient" placeholder="ที่อยู่ผู้รับ (0x...)">
+                <input type="number" id="amount" placeholder="จำนวนที่ต้องการโอน (CHLA)">
+                <button id="sendBtn" class="btn-transfer" onclick="transferTokens()">ส่งเหรียญออกไป 🚀</button>
+            </div>
+            
+            <p style="font-size: 11px; color: #848e9c; margin-top: 20px;">
+                Contract: 0x527FC4060Ac7Bf9Cd19608EDEeE8f09063A16cd4
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 📍 การตั้งค่าพื้นฐาน
+        const contractAddress = "0x527FC4060Ac7Bf9Cd19608EDEeE8f09063A16cd4";
+        const abi = [
+            "function balanceOf(address owner) view returns (uint256)",
+            "function transfer(address to, uint256 amount) public returns (bool)"
+        ];
+
+        let provider, signer, contract;
+
+        // 1. ฟังก์ชันเชื่อมต่อกระเป๋า
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    signer = provider.getSigner();
+                    contract = new ethers.Contract(contractAddress, abi, signer);
+
+                    document.getElementById("walletAddress").innerText = accounts[0];
+                    await updateBalance(accounts[0]);
+
+                    document.getElementById("connectBtn").style.display = "none";
+                    document.getElementById("mainUI").style.display = "block";
+                } catch (error) {
+                    alert("เชื่อมต่อไม่สำเร็จ: " + error.message);
+                }
+            } else {
+                alert("กรุณาติดตั้ง MetaMask!");
+            }
+        }
+
+        // 2. ฟังก์ชันอัปเดตยอดเงิน
+        async function updateBalance(address) {
+            const balance = await contract.balanceOf(address);
+            // แปลงจาก wei (18 decimals) เป็นเลขปกติ และใส่คอมม่าให้สวยงาม
+            const formattedBalance = ethers.utils.formatUnits(balance, 18);
+            document.getElementById("tokenBalance").innerText = parseFloat(formattedBalance).toLocaleString();
+        }
+
+        // 3. ฟังก์ชันการโอนเหรียญ
+        async function transferTokens() {
+            const to = document.getElementById("recipient").value;
+            const amount = document.getElementById("amount").value;
+
+            if (!to || !amount) {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+                return;
+            }
+
+            try {
+                document.getElementById("sendBtn").disabled = true;
+                document.getElementById("sendBtn").innerText = "กำลังประมวลผล... ⏳";
+
+                // แปลงจำนวนเหรียญเป็นหน่วย Wei (คูณ 10^18)
+                const amountInWei = ethers.utils.parseUnits(amount, 18);
+                
+                // เรียกฟังก์ชันโอนใน Smart Contract
+                const tx = await contract.transfer(to, amountInWei);
+                console.log("Transaction Hash:", tx.hash);
+
+                alert("ส่งธุรกรรมแล้ว! กรุณารอการยืนยันจากบล็อกเชน...");
+                
+                // รอจนกว่าธุรกรรมจะสำเร็จบนบล็อกเชน
+                await tx.wait();
+
+                alert("โอนเหรียญสำเร็จแล้วครับท่านประธาน!");
+                
+                // ล้างช่องกรอกเงินและอัปเดตยอดใหม่
+                document.getElementById("amount").value = "";
+                const accounts = await provider.listAccounts();
+                await updateBalance(accounts[0]);
+
+            } catch (error) {
+                console.error(error);
+                alert("เกิดข้อผิดพลาด: " + error.reason || error.message);
+            } finally {
+                document.getElementById("sendBtn").disabled = false;
+                document.getElementById("sendBtn").innerText = "ส่งเหรียญออกไป 🚀";
+            }
+        }
+    </script>
+</body>
+</html>

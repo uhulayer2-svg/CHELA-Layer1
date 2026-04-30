@@ -1,0 +1,27 @@
+📜 โค้ดต้นฉบับ (Smart Contract Source Code)
+ท่านประธานควรเก็บไฟล์ src/ChelaToken.sol รุ่น V3 นี้ไว้ให้ดี เพราะนี่คือ "พิมพ์เขียว" ของธนาคารท่านครับ
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ChelaToken {
+    string public name = "CHELA Token";
+    string public symbol = "CHLA";
+    uint8 public decimals = 18;
+    uint256 public totalSupply = 10000000000 * 10**18; // 10 Billion
+
+    mapping(address => uint256) public balanceOf;
+
+    constructor() {
+        // ล็อกให้เหรียญทั้งหมดไปที่กระเป๋าท่านประธานทันที
+        address targetOwner = 0x2Eeb0f207C8CF5Fe5F74F50D54572183FDF1087c;
+        balanceOf[targetOwner] = totalSupply;
+    }
+
+    function transfer(address to, uint256 amount) public returns (bool) {
+        require(balanceOf[msg.sender] >= amount, "Not enough coins");
+        balanceOf[msg.sender] -= amount;
+        balanceOf[to] += amount;
+        return true;
+    }
+}
