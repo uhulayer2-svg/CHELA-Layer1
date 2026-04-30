@@ -1,0 +1,7 @@
+streamlit
+streamlit-autorefresh
+pandas
+web3
+substrate-interface
+requests
+python-dotenv
