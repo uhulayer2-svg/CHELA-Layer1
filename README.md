@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="dashboard/logo.png" alt="CHELA Logo" width="250">
+  <img src="dashboard/logo.png" alt="CHELA Logo" width="280">
 </p>
 
 # 🌟 CHELA-Layer1
@@ -12,23 +12,24 @@
 [![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![EVM Compatible](https://img.shields.io/badge/EVM-Compatible-3C3C3C?logo=ethereum&logoColor=white)](https://ethereum.org/)
 
-**CHELA-Layer1** is a high-performance Layer-1 Blockchain built with **Substrate + Frontier EVM**. It fully supports both Native Substrate and Ethereum Smart Contracts, complete with a production-ready Dashboard and Block Explorer.
+**CHELA-Layer1** คือ Layer-1 Blockchain ประสิทธิภาพสูงที่สร้างด้วย **Substrate + Frontier EVM** รองรับทั้ง Native Substrate Runtime และ Ethereum Smart Contract แบบเต็มรูปแบบ พร้อม Dashboard และ Block Explorer ใช้งานจริง
 
 ---
 
 ## ✨ Key Features
 
-*   **⚡ Hybrid Architecture** — Substrate Core + Full EVM Compatibility (Frontier).
-*   **🪙 CHLA Token System** — Advanced asset management for both Native and EVM layers.
-*   **🔥 Real-time Dashboard v1.3** — Streamlit-powered UI for live transaction and node monitoring (Running on Port 8502).
-*   **📡 CHLA Scan** — Integrated Block Explorer accessible via Cloudflare Tunnel.
-*   **🌉 Python Bridge Tools** — Comprehensive script suite (v1.2) for fund management and system testing.
-*   **🛡️ Production Ready** — Optimized for Nginx and Cloudflare for global security standards.
+- **⚡ Hybrid Architecture** — Substrate Core + Full EVM Compatibility (Frontier)
+- **🪙 CHLA Token** — ระบบโทเค็นขั้นสูง รองรับทั้ง Native และ EVM
+- **🔥 Real-time Dashboard v1.3** — Streamlit UI ตรวจสอบธุรกรรมและโหนดแบบเรียลไทม์ (Port 8502)
+- **📡 CHLA Scan** — Block Explorer ใช้งานผ่าน Cloudflare Tunnel
+- **🌉 Python Bridge Tools v1.2** — ชุดสคริปต์สำหรับจัดการกองทุนและทดสอบระบบ
+- **🛡️ Production Ready** — รองรับ Nginx + Cloudflare มาตรฐานระดับโลก
 
 ---
 
-## 🇹🇭 Developed by Thai Developers (UHU Layer2 Team)
-This project is a testament to the capabilities of the **Thai Blockchain Community**. We believe in the power of decentralization and aim to push the boundaries of technology from our base in Thailand.
+## 🇹🇭 พัฒนาโดยทีมนักพัฒนาไทย (UHU Layer2 Team)
+
+โครงการนี้คือผลงานของชุมชนบล็อกเชนไทยที่มุ่งพัฒนาเทคโนโลยีจากประเทศไทยสู่ระดับโลก
 
 ---
 
@@ -36,5 +37,5 @@ This project is a testament to the capabilities of the **Thai Blockchain Communi
 
 ### 1. Prerequisites
 ```bash
-# Install Python dependencies from your X99 workstation
+# ติดตั้ง Python dependencies
 pip install -r requirements.txt
