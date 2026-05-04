@@ -1,14 +1,17 @@
-# ลบโฟลเดอร์หนักๆ ออกจาก Git
-node_modules/
+# Environments
 myenv/
+.venv/
+node_modules/
+
+# Python Cache
 __pycache__/
-venv/
+*.pyc
 
-# ลบไฟล์ขยะและ Log
-*.log
-.DS_Store
+# Blockchain Logs & Cache
+node.log
+broadcast/
+cache/
+out/
+
+# Personal Config
 .env
-
-# หากมีไฟล์ Binary หรือไฟล์ขนาดใหญ่ของ Blockchain
-*.exe
-*.bin
