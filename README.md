@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="dashboard/logo.png" alt="CHELA Logo" width="250">
+</p>
+
 # 🌟 CHELA-Layer1
 
 **The Powerful Layer-1 Blockchain Ecosystem — Proudly Developed in Thailand 🇹🇭**
@@ -16,9 +20,9 @@
 
 *   **⚡ Hybrid Architecture** — Substrate Core + Full EVM Compatibility (Frontier).
 *   **🪙 CHLA Token System** — Advanced asset management for both Native and EVM layers.
-*   **🔥 Real-time Dashboard** — Streamlit-powered UI for live transaction and node monitoring (Running on Port 8502).
+*   **🔥 Real-time Dashboard v1.3** — Streamlit-powered UI for live transaction and node monitoring (Running on Port 8502).
 *   **📡 CHLA Scan** — Integrated Block Explorer accessible via Cloudflare Tunnel.
-*   **🌉 Python Bridge Tools** — Comprehensive script suite for fund management and system testing.
+*   **🌉 Python Bridge Tools** — Comprehensive script suite (v1.2) for fund management and system testing.
 *   **🛡️ Production Ready** — Optimized for Nginx and Cloudflare for global security standards.
 
 ---
@@ -32,17 +36,5 @@ This project is a testament to the capabilities of the **Thai Blockchain Communi
 
 ### 1. Prerequisites
 ```bash
-# Install Python dependencies
+# Install Python dependencies from your X99 workstation
 pip install -r requirements.txt
-```
-
-### 2. Run Dashboard (Explorer)
-```bash
-# Start Streamlit on the designated port
-python3 -m streamlit run dashboard.py --server.port 8502
-```
-
----
-
-## 🤝 Contribution
-CHELA is an open ecosystem by **UHU Layer2**. We welcome developers and enthusiasts from all over the world to contribute and build the future with us!
